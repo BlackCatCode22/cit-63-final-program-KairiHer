@@ -1,0 +1,63 @@
+import java.util.Scanner;
+
+public class SearchAlgorithms {
+
+    // Linear search implementation
+    public static int linearSearch(int[] arr, int target) {
+        int iterations = 0;
+        for (int i = 0; i < arr.length; i++) {
+            iterations++;
+            if (arr[i] == target) {
+                System.out.println("Linear Search Iterations: " + iterations);
+                return i; // Return index if target is found
+            }
+        }
+        System.out.println("Linear Search Iterations: " + iterations);
+        return -1; // Return -1 if target is not found
+    }
+
+    // Recursive binary search implementation
+    public static int binarySearch(int[] arr, int target, int low, int high) {
+        if (low > high) {
+            return -1; // Target not found
+        }
+        int mid = low + (high - low) / 2;
+        if (arr[mid] == target) {
+            return mid; // Target found
+        } else if (arr[mid] < target) {
+            return binarySearch(arr, target, mid + 1, high); // Search right half
+        } else {
+            return binarySearch(arr, target, low, mid - 1); // Search left half
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Sample array for testing
+        int[] arr = {2, 4, 6, 8, 10, 12, 14, 16, 18, 20};
+        
+        // Prompt user for target value
+        System.out.print("Enter the target value: ");
+        int target = scanner.nextInt();
+
+        // Linear search
+        int linearResult = linearSearch(arr, target);
+        if (linearResult != -1) {
+            System.out.println("Linear Search: Element found at index " + linearResult);
+        } else {
+            System.out.println("Linear Search: Element not found");
+        }
+
+        // Binary search
+        int binaryResult = binarySearch(arr, target, 0, arr.length - 1);
+        if (binaryResult != -1) {
+            System.out.println("Binary Search: Element found at index " + binaryResult);
+        } else {
+            System.out.println("Binary Search: Element not found");
+        }
+
+        // Close scanner
+        scanner.close();
+    }
+}
